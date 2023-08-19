@@ -21,28 +21,28 @@ int _printf(const char *format, ...)
 		switch (*p)
 		{
 			case '%':
-				switch (*++p)
+			switch (*++p)
+			{
+				case 's':
 				{
-					case 's':
-						{
-							str = va_arg(args, const char*);
-							while (*str != '\0')
-							{
-								_putchar(*str);
-								number_character++;
-								str++;
-							}
-						}
-						continue;
-					case 'c':
-						_putchar((char)va_arg(args, int));
+					str = va_arg(args, const char*);
+					while (*str != '\0')
+					{
+						_putchar(*str);
 						number_character++;
-						continue;
-					case '%':
-						_putchar('%');
-						number_character++;
-						continue;
+						str++;
+					}
 				}
+				continue;
+				case 'c':
+				_putchar((char)va_arg(args, int));
+				number_character++;
+				continue;
+				case '%':
+				_putchar('%');
+				number_character++;
+				continue;
+			}
 		}
 		_putchar(*p);
 		number_character++;
