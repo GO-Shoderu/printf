@@ -1,101 +1,59 @@
-#include "main.h"
+#include <unistd.h>
 #include <stdarg.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include "main.h"
 
 /**
- * _printf - entry level to variadic function
- * @format: gets the parameters
- * Return: returns something
+ * _printf - Custom printf function
+ * @format: Format string
+ * @...: Variable arguments
+ * Return: Number of characters printed
  */
-
 int _printf(const char *format, ...)
 {
-	va_list args;
-	int number_character = 0;
-	const char *p;
-	const char *str;
-	int num;
-	int num_digits;
-	int temp;
-	int i;
-	char *digits;
+va_list args;
+int i = 0, count = 0;
 
-	va_start(args, format);
+va_start(args, format);
 
-	for (p = format; *p != '\0'; ++p)
-	{
-		switch (*p)
-		{
-			case '%':
-			switch (*++p)
-			{
-				case 's':
-				{
-					str = va_arg(args, const char*);
-					while (*str != '\0')
-					{
-						_putchar(*str);
-						number_character++;
-						str++;
-					}
-				}
-				continue;
+while (format && format[i])
+{
+if (format[i] != '%')
+{
+write(1, &format[i], 1);
+count++;
+}
+else
+{
+i++;
+if (format[i] == '\0')
+break;
 
-				case 'c':
-				_putchar((char)va_arg(args, int));
-				number_character++;
-				continue;
+if (format[i] == 'c')
+{
+char c = va_arg(args, int);
+write(1, &c, 1);
+count++;
+}
+else if (format[i] == 's')
+{
+char *str = va_arg(args, char *);
+int j = 0;
+while (str && str[j])
+{
+write(1, &str[j], 1);
+count++;
+j++;
+}
+}
+else if (format[i] == '%')
+{
+write(1, &format[i], 1);
+count++;
+}
+}
+i++;
+}
 
-				case '%':
-				_putchar('%');
-				number_character++;
-				continue;
-
-				case 'i':
-				case 'd':
-				{
-					num = va_arg(args, int);
-
-					if (num < 0)
-					{
-						_putchar('-');
-						num = -num;
-						number_character++;
-					}
-
-					num_digits = 0;
-					temp = num;
-
-					do {
-						temp /= 10;
-						num_digits++;
-					} while (temp > 0);
-
-					digits = (char *)malloc(num_digits + 1);
-
-					for (i = num_digits - 1; i >= 0; i--)
-					{
-						digits[i] = num % 10 + '0';
-						num /= 10;
-					}
-
-					digits[num_digits] = '\0';
-
-					for (i = 0; i < num_digits; i++)
-					{
-						_putchar(digits[i]);
-						number_character++;
-					}
-
-					free(digits);
-				}
-				continue;
-			}
-		}
-		_putchar(*p);
-		number_character++;
-	}
-	va_end(args);
-	return (number_character);
+va_end(args);
+return (count);
 }
