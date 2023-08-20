@@ -1,6 +1,7 @@
 #include "main.h"
 #include <stdarg.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 /**
  * _printf - entry level to variadic function
