@@ -2,33 +2,31 @@
 #include "main.h"
 
 /**
- * print_char - Print a character
+ * process_format - Process a format specifier
+ * @format: The format specifier string
  * @args: List of arguments
  * @count: Pointer to count of printed characters
  */
-void print_char(va_list args, int *count)
+void process_format(const char *format, va_list args, int *count)
 {
-char c = va_arg(args, int);
-*count += _putchar(c);
+if (*format == 'c')
+print_char(args, count);
+else if (*format == 's')
+print_string(args, count);
+else if (*format == 'd' || *format == 'i')
+print_number(va_arg(args, int), 10, count);
+else if (*format == 'u')
+print_unsigned_number(va_arg(args, unsigned int), 10, count);
+else if (*format == 'o')
+print_unsigned_number(va_arg(args, unsigned int), 8, count);
+else if (*format == 'x' || *format == 'X')
+print_hexadecimal(va_arg(args, unsigned int), (*format == 'X'), count);
+else if (*format == '%')
+*count += _putchar('%');
 }
 
 /**
- * print_string - Print a string
- * @args: List of arguments
- * @count: Pointer to count of printed characters
- */
-void print_string(va_list args, int *count)
-{
-char *str = va_arg(args, char*);
-while (*str)
-{
-*count += _putchar(*str);
-str++;
-}
-}
-
-/**
- * _printf - produces output according to a format
+ * _printf - Produces output according to a format
  * @format: The format string
  *
  * Return: Number of characters printed (excluding null byte for strings)
@@ -47,18 +45,12 @@ while (*p)
 if (*p == '%')
 {
 p++;
-if (*p == 'c')
-print_char(args, &count);
-else if (*p == 's')
-print_string(args, &count);
-else if (*p == '%')
-count += _putchar('%');
+process_format(p, args, &count);
 }
 else
 {
 count += _putchar(*p);
 }
-
 p++;
 }
 
