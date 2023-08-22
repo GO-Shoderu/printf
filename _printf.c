@@ -23,6 +23,8 @@ else if (*format == 'x' || *format == 'X')
 print_hexadecimal(va_arg(args, unsigned int), (*format == 'X'), count);
 else if (*format == '%')
 *count += _putchar('%');
+else if (*format == 'a')
+print_address(args, count);
 }
 
 /**
