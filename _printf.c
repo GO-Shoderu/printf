@@ -25,6 +25,8 @@ else if (*format == '%')
 *count += _putchar('%');
 else if (*format == 'a')
 print_address(args, count);
+else if (*format == 'r')
+print_unknown(format, count);
 }
 
 /**

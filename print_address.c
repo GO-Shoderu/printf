@@ -9,15 +9,14 @@
 void print_address(va_list args, int *count)
 {
 void *ptr = va_arg(args, void *);
-char *null_message = "(nil)";
 
 if (ptr == NULL)
 {
-while (*null_message)
-{
-*count += _putchar(*null_message);
-null_message++;
-}
+*count += _putchar('(');
+*count += _putchar('n');
+*count += _putchar('i');
+*count += _putchar('l');
+*count += _putchar(')');
 return;
 }
 

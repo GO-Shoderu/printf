@@ -10,7 +10,7 @@
 int main(void)
 {
 int len;
-int len2;
+int len2 = 0;
 unsigned int ui;
 void *addr;
 
@@ -34,11 +34,12 @@ _printf("String:[%s]\n", "I am a string !");
 printf("String:[%s]\n", "I am a string !");
 _printf("Address:[%p]\n", addr);
 printf("Address:[%p]\n", addr);
-len = _printf("Percent:[%%]\n");
-len2 = printf("Percent:[%%]\n");
+_printf("Percent:[%%]\n");
+printf("Percent:[%%]\n");
 _printf("Len:[%d]\n", len);
 printf("Len:[%d]\n", len2);
 _printf("Unknown:[%r]\n");
 printf("Unknown:[%r]\n");
 return (0);
 }
+
