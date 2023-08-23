@@ -22,5 +22,5 @@ return;
 
 *count += _putchar('0');
 *count += _putchar('x');
-print_hexadecimal((unsigned long int)ptr, 0, count);
+print_hexadecimal((unsigned long int)ptr, 0);
 }

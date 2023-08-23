@@ -1,57 +1,56 @@
-#include <stdarg.h>
 #include "main.h"
+#include <stdarg.h>
 
 /**
- * process_format - Process a format specifier
- * @format: The format specifier string
- * @args: List of arguments
- * @count: Pointer to count of printed characters
- */
-void process_format(const char *format, va_list args, int *count)
-{
-if (*format == 'c')
-print_char(args, count);
-else if (*format == 's')
-print_string(args, count);
-else if (*format == 'd' || *format == 'i')
-print_number(va_arg(args, int), 10, count);
-else if (*format == 'u')
-print_unsigned_number(va_arg(args, unsigned int), 10, count);
-else if (*format == 'o')
-print_unsigned_number(va_arg(args, unsigned int), 8, count);
-else if (*format == 'x' || *format == 'X')
-print_hexadecimal(va_arg(args, unsigned int), (*format == 'X'), count);
-else if (*format == '%')
-*count += _putchar('%');
-}
-
-/**
- * _printf - Produces output according to a format
- * @format: The format string
+ * _printf - Custom printf function
+ * @format: Format string
+ * @...: Variable arguments
  *
- * Return: Number of characters printed (excluding null byte for strings)
+ * Return: Number of characters printed
  */
 int _printf(const char *format, ...)
 {
 va_list args;
-const char *p;
 int count = 0;
 
 va_start(args, format);
-p = format;
 
-while (*p)
+while (*format)
 {
-if (*p == '%')
+if (*format == '%')
 {
-p++;
-process_format(p, args, &count);
+format++;
+if (*format == 'c')
+{
+int c = va_arg(args, int);
+count += _putchar(c);
+}
+else if (*format == 's')
+{
+char *s = va_arg(args, char *);
+if (s)
+count += print_str(s);
+}
+else if (*format == '%')
+{
+count += _putchar('%');
+}
+else if (*format == 'd' || *format == 'i')
+{
+int num = va_arg(args, int);
+count += print_number(num);
 }
 else
 {
-count += _putchar(*p);
+count += _putchar(*format);
 }
-p++;
+format++;
+}
+else
+{
+count += _putchar(*format);
+format++;
+}
 }
 va_end(args);
 return (count);

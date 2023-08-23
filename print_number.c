@@ -1,21 +1,27 @@
 #include "main.h"
 
 /**
- * print_number - Print a number with a specified base
- * @num: The number to print
- * @base: The base for formatting (e.g., 10 for decimal)
- * @count: Pointer to count of printed characters
+ * print_number - Print an integer
+ * @n: Integer to print
+ *
+ * Return: Number of characters printed
  */
-void print_number(int num, int base, int *count)
+int print_number(int n)
 {
-if (num < 0)
+int count = 0;
+
+if (n < 0)
 {
-*count += _putchar('-');
-num = -num;
+_putchar('-');
+count++;
+n = -n;
 }
 
-if (num / base)
-print_number(num / base, base, count);
+if (n / 10)
+count += print_number(n / 10);
 
-*count += _putchar(num % base + '0');
+_putchar(n % 10 + '0');
+count++;
+
+return (count);
 }
