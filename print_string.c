@@ -1,22 +1,19 @@
 #include "main.h"
 
 /**
- * print_str - Print a string
- * @str: String to print
- *
- * Return: Number of characters printed
+ * print_string - Print a string
+ * @args: va_list containing the string to be printed
+ * @count: Pointer to count of printed characters
  */
-int print_str(char *str)
+void print_string(va_list args, int *count)
 {
-int count = 0;
-if (str)
+char *s = va_arg(args, char *);
+if (s)
 {
-while (*str)
+while (*s)
 {
-_putchar(*str);
-count++;
-str++;
+*count += _putchar(*s);
+s++;
 }
 }
-return (count);
 }

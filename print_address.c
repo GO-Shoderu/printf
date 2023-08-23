@@ -1,5 +1,5 @@
 #include "main.h"
-#include <stddef.h>
+#include <stdint.h>
 
 /**
  * print_address - Print an address (pointer)
@@ -22,5 +22,5 @@ return;
 
 *count += _putchar('0');
 *count += _putchar('x');
-print_hexadecimal((unsigned long int)ptr, 0);
+print_hexadecimal((uintptr_t)ptr, 0, count);
 }

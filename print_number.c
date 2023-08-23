@@ -2,26 +2,19 @@
 
 /**
  * print_number - Print an integer
- * @n: Integer to print
- *
- * Return: Number of characters printed
+ * @num: The integer to print
+ * @base: The base for printing (10 for decimal)
+ * @count: Pointer to count of printed characters
  */
-int print_number(int n)
+void print_number(int num, int base, int *count)
 {
-int count = 0;
-
-if (n < 0)
+if (num < 0)
 {
-_putchar('-');
-count++;
-n = -n;
+*count += _putchar('-');
+num = -num;
 }
+if (num >= base)
+print_number(num / base, base, count);
+*count += _putchar((num % base) + '0');
 
-if (n / 10)
-count += print_number(n / 10);
-
-_putchar(n % 10 + '0');
-count++;
-
-return (count);
 }

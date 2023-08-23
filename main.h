@@ -6,8 +6,11 @@
 
 int _printf(const char *format, ...);
 int _putchar(char c);
-int print_str(char *str);
-int print_number(int n);
-void print_hexadecimal(unsigned long int num, int lowercase);
+void print_char(va_list args, int *count);
+void print_string(va_list args, int *count);
+void print_number(int num, int base, int *count);
+void print_unsigned_number(unsigned int num, int base, int *count);
+void print_hexadecimal(unsigned int num, int uppercase, int *count);
+void process_format(const char *format, va_list args, int *count);
 
 #endif /* MAIN_H */
