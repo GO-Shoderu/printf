@@ -5,7 +5,6 @@
  * print_hexadecimal - Print a number in hexadecimal format
  * @num: The number to print in hexadecimal
  * @lowercase: Flag to indicate lowercase formatting
- * @count: Unused parameter (remove it)
  */
 void print_hexadecimal(unsigned long int num, int lowercase)
 {
