@@ -1,34 +1,5 @@
 #include <stdarg.h>
 #include "main.h"
-#include <unistd.h>
-
-/**
- * print_integer - Prints an integer value
- * @num: The integer value to be printed
- * @count: Pointer to a counter for tracking printed characters
- *
- * Description: This function takes an integer value and prints the standard.
- *It handles both positive and negative numbers, converting them to strings
- *and printing each digit. If the number is negative, a '-' sign is printed
- *first. The function recursively divides the number by 10 to extract each
- *digit and uses the `_putchar` function to print each digit as a character.
- *The `count` pointer is used to update the total count of printed characters.
- *
- * Return: None (void)
- */
-
-void print_integer(int num, int *count)
-{
-	if (num < 0)
-	{
-	*count += _putchar('-');
-	num = -num;
-	}
-	if (num / 10)
-	print_integer(num / 10, count);
-
-	*count += _putchar('0' + num % 10);
-}
 
 /**
  * process_format - Process a format specifier
@@ -36,29 +7,24 @@ void print_integer(int num, int *count)
  * @args: List of arguments
  * @count: Pointer to count of printed characters
  */
-
 void process_format(const char *format, va_list args, int *count)
 {
-	if (*format == 'c')
-	print_char(args, count);
-	else if (*format == 's')
-	print_string(args, count);
+if (*format == 'c')
+print_char(args, count);
+else if (*format == 's')
+print_string(args, count);
 else if (*format == 'd' || *format == 'i')
-
-	{
-	int num = va_arg(args, int);
-
-	print_integer(num, count);
-	}
-	else if (*format == 'u')
-	print_number(va_arg(args, int), 10, count);
+print_number(va_arg(args, int), 10, count);
+else if (*format == 'u')
+print_unsigned_number(va_arg(args, unsigned int), 10, count);
 else if (*format == 'o')
 print_unsigned_number(va_arg(args, unsigned int), 8, count);
-	else if (*format == 'x' || *format == 'X')
-	print_hexadecimal(va_arg(args, unsigned int), (*format == 'X'), count);
-	else if (*format == '%')
-		*count += _putchar('%');
+else if (*format == 'x' || *format == 'X')
+print_hexadecimal(va_arg(args, unsigned int), (*format == 'X'), count);
+else if (*format == '%')
+*count += _putchar('%');
 }
+
 /**
  * _printf - Produces output according to a format
  * @format: The format string
@@ -67,41 +33,26 @@ print_unsigned_number(va_arg(args, unsigned int), 8, count);
  */
 int _printf(const char *format, ...)
 {
-	va_list args;
-	const char *p;
-	int count = 0;
+va_list args;
+const char *p;
+int count = 0;
 
-	va_start(args, format);
-	p = format;
+va_start(args, format);
+p = format;
 
-	while (*p)
-	{
-	if (*p == '%')
-	{
-	p++;
-	process_format(p, args, &count);
-	}
-	else
-	{
-	count += _putchar(*p);
-	}
-	p++;
-	}
-	va_end(args);
-	return (count);
-}
-
-
-/**
- *  print_buffer - Prints the contents of the buffer if it exist
- * @buffer: Array of chars
- * @buff_ind: Index at which to add next char, represents the length.
- */
-
-void print_buffer(char buffer[], int *buff_ind)
+while (*p)
 {
-if (*buff_ind > 0)
-write(1, &buffer[0], *buff_ind);
-
-*buff_ind = 0;
+if (*p == '%')
+{
+p++;
+process_format(p, args, &count);
+}
+else
+{
+count += _putchar(*p);
+}
+p++;
+}
+va_end(args);
+return (count);
 }
