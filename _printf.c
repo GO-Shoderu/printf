@@ -20,11 +20,11 @@ void print_integer(int num, int *count)
 {
 	if (num < 0)
 	{
-		*count += _putchar('-');
-		num = -num;
+	*count += _putchar('-');
+	num = -num;
 	}
 	if (num / 10)
-		print_integer(num / 10, count);
+	print_integer(num / 10, count);
 
 	*count += _putchar('0' + num % 10);
 }
@@ -39,20 +39,22 @@ void print_integer(int num, int *count)
 void process_format(const char *format, va_list args, int *count)
 {
 	if (*format == 'c')
-		print_char(args, count);
+	print_char(args, count);
 	else if (*format == 's')
-		print_string(args, count);
-	else if (*format == 'd' || *format == 'i')
+	print_string(args, count);
+else if (*format == 'd' || *format == 'i')
+
 	{
-		int num = va_arg(args, int);
+	int num = va_arg(args, int);
+
 	print_integer(num, count);
 	}
 	else if (*format == 'u')
-		print_number(va_arg(args, int), 10, count);
-	else if (*format == 'o')
-		print_unsigned_number(va_arg(args, unsigned int), 8, count);
+	print_number(va_arg(args, int), 10, count);
+else if (*format == 'o')
+print_unsigned_number(va_arg(args, unsigned int), 8, count);
 	else if (*format == 'x' || *format == 'X')
-		print_hexadecimal(va_arg(args, unsigned int), (*format == 'X'), count);
+	print_hexadecimal(va_arg(args, unsigned int), (*format == 'X'), count);
 	else if (*format == '%')
 		*count += _putchar('%');
 }
@@ -75,12 +77,12 @@ int _printf(const char *format, ...)
 	{
 	if (*p == '%')
 	{
-		p++;
-		process_format(p, args, &count);
+	p++;
+	process_format(p, args, &count);
 	}
 	else
 	{
-		count += _putchar(*p);
+	count += _putchar(*p);
 	}
 	p++;
 	}
