@@ -23,6 +23,15 @@ else if (*format == 'x' || *format == 'X')
 print_hexadecimal(va_arg(args, unsigned int), (*format == 'X'), count);
 else if (*format == '%')
 *count += _putchar('%');
+print_octal(va_arg(args, unsigned int), count);
+else if (*format == 'x')
+print_hexadecimal_lower(va_arg(args, unsigned int), count);
+else if (*format == 'X')
+print_hexadecimal_upper(va_arg(args, unsigned int), count);
+else if (*format == 'p')
+print_address(args, count);
+else if (*format == '%')
+*count += _putchar('%');
 }
 
 
